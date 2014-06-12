@@ -33,11 +33,9 @@ MainApplication::~MainApplication(void)
 void MainApplication::createScene(void)
 {
 	// Build your scene here
-	
 	// Set the scene's ambient light
     mSceneMgr->setAmbientLight(ColourValue(0.75, 0.75, 0.75));
-    
-    ///=========================================================================
+
     // Create an Entity
     // Entity* ogreHead = mSceneMgr->createEntity("RZR", "RZR-002.mesh");
     Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
@@ -48,7 +46,7 @@ void MainApplication::createScene(void)
     ogreHead->getSubEntity(3)->setMaterialName("CustomOgre/Tusks");
     
     // Create a SceneNode and attach the Entity to it
-    SceneNode* headNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("HeadNode");
+    SceneNode* headNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("OgreNode");
     headNode->attachObject(ogreHead);
     headNode->scale(0.25, 0.25, 0.25);
 
@@ -77,7 +75,42 @@ bool MainApplication::processUnbufferedInput(const FrameEvent& evt)
     
     mMouseDown = currMouse;
     
-    // mToggle -= evt.timeSinceLastFrame;
+    mToggle -= evt.timeSinceLastFrame;
+    
+    if((mToggle < 0.0f) && mKeyboard->isKeyDown(OIS::KC_1))
+    {
+        mToggle = 0.5;
+        Light* light = mSceneMgr->getLight("MainLight");
+        light->setVisible(!light->isVisible());
+    }
+    
+    Vector3 transVector = Vector3::ZERO;
+    
+    // Move Ogre head up
+    if(mKeyboard->isKeyDown(OIS::KC_W))
+    {
+        transVector.y += mMove;
+    }
+    
+    // Move Ogre head down
+    if(mKeyboard->isKeyDown(OIS::KC_S))
+    {
+        transVector.y -= mMove;
+    }
+    
+    // Move Ogre head left
+    if(mKeyboard->isKeyDown(OIS::KC_A))
+    {
+        transVector.x -= mMove;
+    }
+    
+    // Move Ogre head right
+    if(mKeyboard->isKeyDown(OIS::KC_D))
+    {
+        transVector.x += mMove;
+    }
+    
+    mSceneMgr->getSceneNode("OgreNode")->translate(transVector * evt.timeSinceLastFrame, Node::TS_WORLD);
     
     return true;
 }

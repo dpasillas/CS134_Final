@@ -35,7 +35,7 @@ void MainApplication::createScene(void)
 	// Build your scene here
 	
 	// Set the scene's ambient light
-    mSceneMgr->setAmbientLight(ColourValue(0.25, 0.25, 0.25));
+    mSceneMgr->setAmbientLight(ColourValue(0.75, 0.75, 0.75));
     
     ///=========================================================================
     // Create an Entity
@@ -60,7 +60,6 @@ void MainApplication::createScene(void)
     mainLight->setSpecularColour(ColourValue::White);
 }
 
-/*
 bool MainApplication::processUnbufferedInput(const FrameEvent& evt)
 {
     static bool mMouseDown = false; // if mouse button is pressed
@@ -72,14 +71,17 @@ bool MainApplication::processUnbufferedInput(const FrameEvent& evt)
     
     if(currMouse && !mMouseDown)
     {
-        Light * light = mSceneMgr->getLight("mainLight");
+        Light * light = mSceneMgr->getLight("MainLight");
         light->setVisible(!light->isVisible());
     }
     
     mMouseDown = currMouse;
+    
+    // mToggle -= evt.timeSinceLastFrame;
+    
+    return true;
 }
-*/
-/*
+
 bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
 {
     bool ret = BaseApplication::frameRenderingQueued(evt);
@@ -89,7 +91,7 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
 
     return ret;
 }
-*/
+
 
 #ifdef __cplusplus
 extern "C" {

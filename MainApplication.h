@@ -28,10 +28,25 @@ public:
 
 protected:
     virtual void createScene(void);
+    virtual void createFrameListener(void);
+    
+    // Ogre FrameListener
     virtual bool frameRenderingQueued(const Ogre::FrameEvent& evt);
+    // OIS KeyListener
+    virtual bool keyPressed(const OIS::KeyEvent& evt);
+    virtual bool keyReleased(const OIS::KeyEvent& evt);
+    // OIS MouseListener
+    virtual bool mouseMoved(const OIS::MouseEvent& evt);
+    virtual bool mousePressed(const OIS::MouseEvent& evt, OIS::MouseButtonID id);
+    virtual bool mouseReleased(const OIS::MouseEvent& evt, OIS::MouseButtonID id);
+    
+    Ogre::Real mRotate;         // rotate constant
+    Ogre::Real mMove;           // movement cosntant
+    Ogre::SceneNode * mCamNode; // SceneNode the camera is currently attacjed to
+    Ogre::Vector3 mDirection;   // value to move in correct direction
 
-private:
-    bool processUnbufferedInput(const Ogre::FrameEvent& evt);
+// private:
+//     bool processUnbufferedInput(const Ogre::FrameEvent& evt);
 };
 
 #endif

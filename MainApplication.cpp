@@ -28,27 +28,26 @@ MainApplication::MainApplication(void)
 MainApplication::~MainApplication(void)
 {
 }
-
 //-------------------------------------------------------------------------------------
 void MainApplication::createScene(void)
 {
 	// Build your scene here
 	// Set the scene's ambient light
-    mSceneMgr->setAmbientLight(ColourValue(0.75, 0.75, 0.75));
+    mSceneMgr->setAmbientLight(ColourValue(1.0, 1.0, 1.0));
 
     // Create an Entity
     // Entity* ogreHead = mSceneMgr->createEntity("RZR", "RZR-002.mesh");
     Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
-    // ogreHead->setMaterialName("MetalOgre/Skin");
-    ogreHead->getSubEntity(0)->setMaterialName("CustomOgre/Eyes");
-    ogreHead->getSubEntity(1)->setMaterialName("CustomOgre/Skin");
-    ogreHead->getSubEntity(2)->setMaterialName("CustomOgre/Earring");
-    ogreHead->getSubEntity(3)->setMaterialName("CustomOgre/Tusks");
+            ogreHead->getSubEntity(0)->setMaterialName("CustomOgre/Eyes");
+            ogreHead->getSubEntity(1)->setMaterialName("CustomOgre/Skin");
+            ogreHead->getSubEntity(2)->setMaterialName("CustomOgre/Earring");
+            ogreHead->getSubEntity(3)->setMaterialName("CustomOgre/Tusks");
     
     // Create a SceneNode and attach the Entity to it
-    SceneNode* headNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("OgreNode");
-    headNode->attachObject(ogreHead);
-    headNode->scale(0.25, 0.25, 0.25);
+    SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("OgreNode", Vector3(0, 0, 0));
+    sceneNode->attachObject(ogreHead);
+    sceneNode->scale(0.35, 0.35, 0.35);  // make ogre smaller
+    sceneNode->yaw(Degree(90));          // make ogre face sideways
 
     // Create a Light and set its pos
     Light* mainLight = mSceneMgr->createLight("MainLight");
@@ -56,8 +55,118 @@ void MainApplication::createScene(void)
     mainLight->setPosition(Vector3(250, 150, 250));
     mainLight->setDiffuseColour(ColourValue::White);
     mainLight->setSpecularColour(ColourValue::White);
+
+    // create the second camera node and pitch node
+    sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("CamNode", Vector3(0, 0, 400));
+    sceneNode = sceneNode->createChildSceneNode("PitchNode");
+    sceneNode->attachObject(mCamera);
+}
+//-------------------------------------------------------------------------------------
+void MainApplication::createFrameListener(void)
+{
+    BaseApplication::createFrameListener();
+
+    // Populate the camera container
+    mCamNode = mCamera->getParentSceneNode();
+
+    // set the rotation and move speed
+    mRotate = 0.13;
+    mMove = 250;
+
+    mDirection = Vector3::ZERO;
 }
 
+bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
+{
+    if(mWindow->isClosed())
+        return false;
+    if(mShutDown)
+        return false;
+
+    // Capture input to respond
+    mKeyboard->capture();
+    mMouse->capture();
+    mTrayMgr->frameRenderingQueued(evt);
+    mCamNode->translate(mDirection * evt.timeSinceLastFrame, Node::TS_LOCAL);
+    mSceneMgr->getSceneNode("OgreNode")->translate(mDirection * evt.timeSinceLastFrame, Node::TS_WORLD);
+    return true;
+}
+
+//-------------------------------------------------------------------------------------
+// OIS::Keylistener
+bool MainApplication::keyPressed(const OIS::KeyEvent& evt)
+{
+    switch(evt.key)
+    {
+        case OIS::KC_ESCAPE:
+            mShutDown = true;
+            break;
+
+        case OIS::KC_W:
+            mDirection.y = mMove;
+            break;
+
+        case OIS::KC_A:
+            mDirection.x = -mMove;
+            break;
+
+        case OIS::KC_S:
+            mDirection.y = -mMove;
+            break;
+
+        case OIS::KC_D:
+            mDirection.x = mMove;
+            break;
+
+        default:
+            break;
+    }
+    return true;
+}
+//-------------------------------------------------------------------------------------
+bool MainApplication::keyReleased(const OIS::KeyEvent& evt)
+{
+    switch(evt.key)
+    {
+        case OIS::KC_W:
+            mDirection.y = 0;
+            break;
+
+        case OIS::KC_A:
+            mDirection.x = 0;
+            break;
+
+        case OIS::KC_S:
+            mDirection.y = 0;
+            break;
+
+        case OIS::KC_D:
+            mDirection.x = 0;
+            break;
+
+        default:
+            break;
+    }
+    return true;
+}
+//-------------------------------------------------------------------------------------
+bool MainApplication::mouseMoved(const OIS::MouseEvent& evt)
+{
+    return true;
+}
+//-------------------------------------------------------------------------------------
+bool MainApplication::mousePressed(const OIS::MouseEvent& evt, OIS::MouseButtonID id)
+{
+    return true;
+}
+//-------------------------------------------------------------------------------------
+bool MainApplication::mouseReleased(const OIS::MouseEvent& evt, OIS::MouseButtonID id)
+{
+    return true;
+}
+//-------------------------------------------------------------------------------------
+
+/*
 bool MainApplication::processUnbufferedInput(const FrameEvent& evt)
 {
     static bool mMouseDown = false; // if mouse button is pressed
@@ -114,16 +223,7 @@ bool MainApplication::processUnbufferedInput(const FrameEvent& evt)
     
     return true;
 }
-
-bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
-{
-    bool ret = BaseApplication::frameRenderingQueued(evt);
-
-    if(!processUnbufferedInput(evt))
-        return false;
-
-    return ret;
-}
+*/
 
 
 #ifdef __cplusplus

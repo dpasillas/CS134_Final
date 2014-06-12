@@ -227,6 +227,33 @@ bool BaseApplication::setup(void)
     // Set default mipmap level (NB some APIs ignore this)
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
 
+    // create background material
+    Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("background", "General");
+    material->getTechnique(0)->getPass(0)->createTextureUnitState("spacesky.jpg");
+    material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
+    material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
+    material->getTechnique(0)->getPass(0)->setLightingEnabled(false);
+
+    // create background rectangle that covers the whole screen
+    bgRect = new Ogre::Rectangle2D(true);
+    bgRect->setCorners(-1.0, 1.0, 1.0, -1.0);
+    bgRect->setMaterial("background");
+
+    // render the background before everything else
+    bgRect->setRenderQueueGroup(Ogre::RENDER_QUEUE_BACKGROUND);
+
+    // always make it visible with infinite aab
+    Ogre::AxisAlignedBox aabInf;
+    aabInf.setInfinite();
+    bgRect->setBoundingBox(aabInf);
+
+    // attach the background to the scene
+    Ogre::SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("background");
+    sceneNode->attachObject(bgRect);
+
+    // scroll the background
+    material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setScrollAnimation(-0.25, 0.0);
+
     // Create any resource listeners (for loading screens)
     createResourceListener();
     // Load resources

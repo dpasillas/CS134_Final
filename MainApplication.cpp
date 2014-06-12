@@ -36,7 +36,6 @@ void MainApplication::createScene(void)
     mSceneMgr->setAmbientLight(ColourValue(1.0, 1.0, 1.0));
 
     // Create an Entity
-    // Entity* ogreHead = mSceneMgr->createEntity("RZR", "RZR-002.mesh");
     Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
             ogreHead->getSubEntity(0)->setMaterialName("CustomOgre/Eyes");
             ogreHead->getSubEntity(1)->setMaterialName("CustomOgre/Skin");
@@ -46,7 +45,7 @@ void MainApplication::createScene(void)
     // Create a SceneNode and attach the Entity to it
     SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("OgreNode", Vector3(0, 0, 0));
     sceneNode->attachObject(ogreHead);
-    sceneNode->scale(0.35, 0.35, 0.35);  // make ogre smaller
+    sceneNode->scale(0.5, 0.5, 0.5);  // make ogre smaller
     sceneNode->yaw(Degree(90));          // make ogre face sideways
 
     // Create a Light and set its pos
@@ -87,7 +86,7 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
     mKeyboard->capture();
     mMouse->capture();
     mTrayMgr->frameRenderingQueued(evt);
-    mCamNode->translate(mDirection * evt.timeSinceLastFrame, Node::TS_LOCAL);
+    // mCamNode->translate(mDirection * evt.timeSinceLastFrame, Node::TS_LOCAL);
     mSceneMgr->getSceneNode("OgreNode")->translate(mDirection * evt.timeSinceLastFrame, Node::TS_WORLD);
     return true;
 }
@@ -165,66 +164,6 @@ bool MainApplication::mouseReleased(const OIS::MouseEvent& evt, OIS::MouseButton
     return true;
 }
 //-------------------------------------------------------------------------------------
-
-/*
-bool MainApplication::processUnbufferedInput(const FrameEvent& evt)
-{
-    static bool mMouseDown = false; // if mouse button is pressed
-    static Real mToggle = 0.0;      // time left until next toggle
-    static Real mRotate = 0.13;     // rotation constant
-    static Real mMove = 250;        // movement constant
-    
-    bool currMouse = mMouse->getMouseState().buttonDown(OIS::MB_Left);
-    
-    if(currMouse && !mMouseDown)
-    {
-        Light * light = mSceneMgr->getLight("MainLight");
-        light->setVisible(!light->isVisible());
-    }
-    
-    mMouseDown = currMouse;
-    
-    mToggle -= evt.timeSinceLastFrame;
-    
-    if((mToggle < 0.0f) && mKeyboard->isKeyDown(OIS::KC_1))
-    {
-        mToggle = 0.5;
-        Light* light = mSceneMgr->getLight("MainLight");
-        light->setVisible(!light->isVisible());
-    }
-    
-    Vector3 transVector = Vector3::ZERO;
-    
-    // Move Ogre head up
-    if(mKeyboard->isKeyDown(OIS::KC_W))
-    {
-        transVector.y += mMove;
-    }
-    
-    // Move Ogre head down
-    if(mKeyboard->isKeyDown(OIS::KC_S))
-    {
-        transVector.y -= mMove;
-    }
-    
-    // Move Ogre head left
-    if(mKeyboard->isKeyDown(OIS::KC_A))
-    {
-        transVector.x -= mMove;
-    }
-    
-    // Move Ogre head right
-    if(mKeyboard->isKeyDown(OIS::KC_D))
-    {
-        transVector.x += mMove;
-    }
-    
-    mSceneMgr->getSceneNode("OgreNode")->translate(transVector * evt.timeSinceLastFrame, Node::TS_WORLD);
-    
-    return true;
-}
-*/
-
 
 #ifdef __cplusplus
 extern "C" {

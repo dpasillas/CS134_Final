@@ -94,10 +94,12 @@ void BaseApplication::createFrameListener(void)
     OIS::ParamList pl;
     size_t windowHnd = 0;
     std::ostringstream windowHndStr;
-
+    
     mWindow->getCustomAttribute("WINDOW", &windowHnd);
     windowHndStr << windowHnd;
     pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
+    pl.insert( std::make_pair(std::string("x11_mouse_grab"),std::string("false")) );
+    pl.insert( std::make_pair(std::string("x11_keyboard_grab"),std::string("false")) );
 
     mInputManager = OIS::InputManager::createInputSystem( pl );
 

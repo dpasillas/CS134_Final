@@ -1,4 +1,4 @@
-#ifdef COLLECTIBLE_H
+#ifndef COLLECTIBLE_H
 #define COLLECTIBLE_H
 
 #include "item.h"

@@ -101,11 +101,10 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
     mMouse->capture();
     mTrayMgr->frameRenderingQueued(evt);
     
-    // Set up movement bounds ("walls" on the window edges)
 
     // Update ogre position
     mSceneMgr->getSceneNode("PlayerNode")->translate(mDirection * evt.timeSinceLastFrame, Node::TS_WORLD);
-    
+
     Item::updateAll(evt.timeSinceLastFrame);
     Item::checkCollisions(mSceneMgr);
     Item::cleanup();

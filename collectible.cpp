@@ -1,13 +1,17 @@
 #include "collectible.h"
 #include <cstdlib>
 #include <math.h>
+#include <iostream>
 //#include <stdlib.h>
 
+int Collectible::score = 0;
 const double PI = acos(-1);
 
 using namespace Ogre;
 
-Collectible::Collectible(SceneManager* mSceneMgr, Vector3 pos) : Item(mSceneMgr) {
+Collectible::Collectible(SceneManager* mSceneMgr, Vector3 pos)
+    : Item(mSceneMgr)
+{
    
     init();
     // Create an Entity
@@ -35,6 +39,8 @@ std::string Collectible::getPrefix() {
 
 bool Collectible::playerCollision() {
     Item::queueForDeletion(this);
+    score++;
+    std::cout << "Current Score: " << score << std::endl;
     return true;
 }
 

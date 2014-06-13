@@ -4,11 +4,10 @@
 
 using namespace Ogre;
 
-unsigned 
-int Projectile::id = 0;
+unsigned int Projectile::id = 0;
+std::vector<Projectile*> Projectile::projectiles = std::vector<Projectile*>();
 
-Projectile::Projectile(SceneManager* mSceneMgr, Vector3 pos, Vector3 dir) {
-    //mSceneMgr->setAmbientLight(ColourValue(1.0, 1.0, 1.0));
+Projectile::Projectile(SceneManager* mSceneMgr, Vector3 pos, Vector3 dir) : mSceneMgr(mSceneMgr), dir(dir) {
 
     // Create an Entity
     char buf[256];
@@ -24,20 +23,16 @@ Projectile::Projectile(SceneManager* mSceneMgr, Vector3 pos, Vector3 dir) {
     sceneNode->attachObject(ogreHead);
     sceneNode->scale(0.075, 0.075, 0.075);  // make ogre smaller
     sceneNode->yaw(Degree(90));          // make ogre face sideways
-
-    /*// Create a Light and set its pos
-    Light* mainLight = mSceneMgr->createLight("MainLight");
-    mainLight->setType(Light::LT_POINT);
-    mainLight->setPosition(Vector3(250, 150, 250));
-    mainLight->setDiffuseColour(ColourValue::White);
-    mainLight->setSpecularColour(ColourValue::White);
-
-    // create the second camera node and pitch node
-    sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("CamNode", Vector3(0, 0, 400));
-    sceneNode = sceneNode->createChildSceneNode("PitchNode");
-    sceneNode->attachObject(mCamera);*/
+    
+    node = sceneNode;
+    
+    projectiles.push_back(this);
+    
 }
 
-void Projectile::update() {
-    
+void Projectile::update(Real dt) {
+    for(int i = 0, _i = projectiles.size(); i < _i; ++i) {
+        Projectile* p = projectiles[i];
+        p->node->translate( p->dir * dt);
+    }
 }

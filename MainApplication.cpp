@@ -99,6 +99,8 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
 
     // Update ogre position
     mSceneMgr->getSceneNode("OgreNode")->translate(mDirection * evt.timeSinceLastFrame, Node::TS_WORLD);
+    
+    Projectile::update(evt.timeSinceLastFrame);
 
     return true;
 }
@@ -155,7 +157,7 @@ bool MainApplication::keyPressed(const OIS::KeyEvent& evt)
             mDirection.x = mMove;
             break;
 
-        case OIS::KC_X:
+        case OIS::KC_SPACE:
             new Projectile(mSceneMgr, mSceneMgr->getSceneNode("OgreNode")->getPosition());
         default:
             break;

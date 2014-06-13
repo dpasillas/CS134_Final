@@ -22,13 +22,21 @@
 #include <OgreAxisAlignedBox.h>
 #include <OgreMaterial.h>
 
+#include <vector>
+
 class Projectile {
 public:
-    Projectile(Ogre::SceneManager* mSceneMgr, Ogre::Vector3 pos, Ogre::Vector3 dir = Ogre::Vector3(0,0,0));
+    Projectile(Ogre::SceneManager* mSceneMgr, Ogre::Vector3 pos, Ogre::Vector3 dir = Ogre::Vector3(100,0,0));
     
-    void update();
+    static void update(Ogre::Real);
 private:
     static unsigned int id;
+    static std::vector<Projectile*> projectiles;
+    
+    Ogre::SceneManager* mSceneMgr;
+    Ogre::Vector3 dir;
+    Ogre::SceneNode* node;
+    
 };
 
 #endif

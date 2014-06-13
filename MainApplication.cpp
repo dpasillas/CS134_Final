@@ -95,10 +95,10 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
         return false;
     if(mShutDown)
         return false;
-    // if(Collectible::score < 0)
-    // {
-    //     Item::queueForDeletion(CollectibleSpawner::cs);
-    // }
+    if(Collectible::score < 0)
+    {
+        Item::queueForDeletion(CollectibleSpawner::cs);
+    }
 
     // Capture input to respond
     mKeyboard->capture();

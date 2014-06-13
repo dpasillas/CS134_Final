@@ -4,31 +4,23 @@
 
 using namespace Ogre;
 
-unsigned int Projectile::id = 0;
-std::vector<Projectile*> Projectile::projectiles = std::vector<Projectile*>();
-
-Projectile::Projectile(SceneManager* mSceneMgr, Vector3 pos, Vector3 dir) : mSceneMgr(mSceneMgr), dir(dir) {
+Projectile::Projectile(SceneManager* mSceneMgr, Vector3 pos, Vector3 dir) : Item(mSceneMgr), dir(dir) {
 
     // Create an Entity
-    char buf[256];
-    std::string idTag = std::string("") + id++;
-    Entity* barrelProjectile = mSceneMgr->createEntity("Bullet" + idTag, "Barrel.mesh");
+    Entity* barrelProjectile = mSceneMgr->createEntity(getUniqueName("Bullet"), "Barrel.mesh");
 
     // Create a SceneNode and attach the Entity to it
-    SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("BulletNode"+idTag, pos);
+    SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(getUniqueName("BulletNode"), pos);
     
     sceneNode->attachObject(barrelProjectile);
     sceneNode->scale(3, 3, 3);
     sceneNode->yaw(Degree(90));
     
-    node = sceneNode;
-    projectiles.push_back(this);
+    setNode(sceneNode);
 }
 
 void Projectile::update(Real dt) {
-    for(int i = 0, _i = projectiles.size(); i < _i; ++i) {
-        Projectile* p = projectiles[i];
-        p->node->translate(p->dir * dt);
-        p->node->pitch(Degree(5));
-    }
+    
+    node->translate(dir * dt);
+    node->pitch(Degree(5));
 }

@@ -81,7 +81,7 @@ void MainApplication::createFrameListener(void)
 
     mDirection = Vector3::ZERO;
 }
-
+//-------------------------------------------------------------------------------------
 bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
 {
     if(mWindow->isClosed())
@@ -104,7 +104,6 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
 
     return true;
 }
-
 //-------------------------------------------------------------------------------------
 void MainApplication::sceneBoundingBox()
 {
@@ -130,7 +129,6 @@ void MainApplication::sceneBoundingBox()
         mSceneMgr->getSceneNode("OgreNode")->setPosition(Vector3(mDistance.x, MAX_Y, mDistance.z));
     }
 }
-
 //-------------------------------------------------------------------------------------
 // OIS::Keylistener
 bool MainApplication::keyPressed(const OIS::KeyEvent& evt)

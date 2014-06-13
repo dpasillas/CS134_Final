@@ -6,7 +6,7 @@ material RZR-002
         {
             texture_unit
             {
-                texture RZR-002.png
+                texture Gold.jpg
             }
         }
     }

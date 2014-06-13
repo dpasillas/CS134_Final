@@ -26,7 +26,7 @@
 
 class Projectile {
 public:
-    Projectile(Ogre::SceneManager* mSceneMgr, Ogre::Vector3 pos, Ogre::Vector3 dir = Ogre::Vector3(100,0,0));
+    Projectile(Ogre::SceneManager* mSceneMgr, Ogre::Vector3 pos, Ogre::Vector3 dir = Ogre::Vector3(500,0,0));
     
     static void update(Ogre::Real);
 private:

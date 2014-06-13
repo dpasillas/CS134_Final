@@ -12,7 +12,7 @@ public:
     static std::vector<std::string> collectibleNames;
     virtual std::string getPrefix();
     virtual bool playerCollision();
-    virtual bool enemyCollision();
+    virtual bool enemyCollision(Item* enemy);
 };
 
 class CollectibleSpawner : public Item {
@@ -24,7 +24,7 @@ public:
     virtual std::string getPrefix();
     
     virtual bool playerCollision();
-    virtual bool enemyCollision();
+    virtual bool enemyCollision(Item* enemy);
     
     volatile Ogre::Real accumulator;
     volatile Ogre::Real totalTime;

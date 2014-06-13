@@ -5,7 +5,7 @@
 
 class Collectible : public Item {
 public:
-    class Collectible(Ogre::SceneManager* mSceneMgr);
+    Collectible(Ogre::SceneManager* mSceneMgr, Ogre::Vector3 pos = Ogre::Vector3(0,0,0));
     
     virtual void update(Ogre::Real);
 };

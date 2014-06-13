@@ -92,9 +92,19 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
     mKeyboard->capture();
     mMouse->capture();
     mTrayMgr->frameRenderingQueued(evt);
-    // mCamNode->translate(mDirection * evt.timeSinceLastFrame, Node::TS_LOCAL);
-
     
+    // Set up movement bounds ("walls" on the window edges)
+    sceneBoundingBox();
+
+    // Update ogre position
+    mSceneMgr->getSceneNode("OgreNode")->translate(mDirection * evt.timeSinceLastFrame, Node::TS_WORLD);
+
+    return true;
+}
+
+//-------------------------------------------------------------------------------------
+void MainApplication::sceneBoundingBox()
+{
     Vector3 mDistance(mSceneMgr->getSceneNode("OgreNode")->getPosition());
     if(mDistance.x <= MIN_X)
     {
@@ -116,10 +126,6 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
         mDirection.y = std::min(0.,(double)mDirection.y);
         mSceneMgr->getSceneNode("OgreNode")->setPosition(Vector3(mDistance.x, MAX_Y, mDistance.z));
     }
-    
-    mSceneMgr->getSceneNode("OgreNode")->translate(mDirection * evt.timeSinceLastFrame, Node::TS_WORLD);
-
-    return true;
 }
 
 //-------------------------------------------------------------------------------------

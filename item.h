@@ -40,6 +40,7 @@ public:
     virtual bool playerCollision();
     virtual bool enemyCollision(Item* enemy);
     static void queueForDeletion(Item * item);
+    
 protected:
     void init();
     std::string getUniqueName(std::string prefix);

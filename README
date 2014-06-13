@@ -4,18 +4,23 @@ Team Members
 
 Controls
 	WASD to move player (plane)
-	SPACE to shoot (doesn't do anything but it looks cool)
+	SPACE to shoot
 
 Collectibles
-	Golden cubes (no collision)
+	Golden cubes
 
 Enemies
-	Ogre heads (unfinished)
+	Ogre heads
 
 Obstacles
-	Other planes (unfinished)
+	Other planes
 
 Requirements to win
 	Survive the level
-	You lose when you collide with an enemy (unfinished)
-	Level 1 is easy, level 2 is more difficult (unfinished)
+	You lose when your score goes below 0.
+	
+	Level 1 is easy
+	Reach 100 points to win level. Hitting an Ogre will take off 10 points. Winning will take you to level 2.
+
+	Level 2 is hard
+	Reach 100 points to win the game. Hitting an Ogre will take off 10 points. Ogres will follow you to the depths of hell and back. Winning will officially mark you as "Not a Noob."

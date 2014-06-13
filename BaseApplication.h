@@ -90,7 +90,7 @@ protected:
     Ogre::String mResourcesCfg;
     Ogre::String mPluginsCfg;
     Ogre::Rectangle2D* bgRect;
-
+    OgreBites::TextBox* mTextBox;
     // OgreBites
     OgreBites::SdkTrayManager* mTrayMgr;
     OgreBites::SdkCameraMan* mCameraMan;     // basic camera controller

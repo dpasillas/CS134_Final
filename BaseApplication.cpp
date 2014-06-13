@@ -32,7 +32,8 @@ BaseApplication::BaseApplication(void)
     mShutDown(false),
     mInputManager(0),
     mMouse(0),
-    mKeyboard(0)
+    mKeyboard(0),
+    mTextBox(0)
 {
 }
 
@@ -117,6 +118,8 @@ void BaseApplication::createFrameListener(void)
 
     mTrayMgr = new OgreBites::SdkTrayManager("InterfaceName", mWindow, mMouse, this);
     mTrayMgr->showFrameStats(OgreBites::TL_BOTTOMLEFT);
+    mTextBox = mTrayMgr->createTextBox(OgreBites::TL_BOTTOMRIGHT, "TextBox", "", 200, 30);
+    // mTextBox->hide();
     mTrayMgr->hideCursor();
 
     // create a params panel for displaying sample details
@@ -132,7 +135,7 @@ void BaseApplication::createFrameListener(void)
     // items.push_back("");
     // items.push_back("Filtering");
     // items.push_back("Poly Mode");
-    items.push_back("Score");
+    items.push_back("Score: ");
 
     // char buf[256];
     // sprintf(buf, "%i", Collectible::score);
@@ -278,6 +281,17 @@ bool BaseApplication::frameRenderingQueued(const Ogre::FrameEvent& evt)
 
     if(mShutDown)
         return false;
+
+    if(Collectible::score >= 100 && EnemySpawner::es && EnemySpawner::es->mode == 1)
+    {
+        mTextBox->setCaption("You Win!!");
+        mTextBox->show();
+    }
+    if(Collectible::score < 0)
+    {
+        mTextBox->setCaption("You Lose!!");
+        mTextBox->show();
+    }
 
     //Need to capture/update each device
     mKeyboard->capture();

@@ -40,14 +40,12 @@ protected:
     virtual bool mousePressed(const OIS::MouseEvent& evt, OIS::MouseButtonID id);
     virtual bool mouseReleased(const OIS::MouseEvent& evt, OIS::MouseButtonID id);
     void sceneBoundingBox();
+    void checkHitBox();
 
     Ogre::Real mRotate;         // rotate constant
     Ogre::Real mMove;           // movement cosntant
     Ogre::SceneNode * mCamNode; // SceneNode the camera is currently attacjed to
     Ogre::Vector3 mDirection;   // value to move in correct direction
-
-// private:
-//     bool processUnbufferedInput(const Ogre::FrameEvent& evt);
 };
 
 #endif

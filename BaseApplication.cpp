@@ -252,7 +252,7 @@ bool BaseApplication::setup(void)
     sceneNode->attachObject(bgRect);
 
     // scroll the background
-    material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setScrollAnimation(-0.25, 0.0);
+    material->getTechnique(0)->getPass(0)->getTextureUnitState(0)->setScrollAnimation(-0.75, 0.0);
 
     // Create any resource listeners (for loading screens)
     createResourceListener();

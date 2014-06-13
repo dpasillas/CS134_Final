@@ -4,10 +4,10 @@
 
 using namespace Ogre;
 
-Collectible::Collectible(SceneManager* mSceneMgr) : Item(mSceneMgr) {
+Collectible::Collectible(SceneManager* mSceneMgr, Vector3 pos) : Item(mSceneMgr) {
 
     // Create an Entity
-    Entity* barrelCollectible = mSceneMgr->createEntity(getUniqueName("Collectible"), "cube.mesh");
+    Entity* collectibleEntity = mSceneMgr->createEntity(getUniqueName("Collectible"), "cube.mesh");
 
     // Create a SceneNode and attach the Entity to it
     SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(getUniqueName("CollectibleNode"), pos);

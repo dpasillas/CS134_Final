@@ -1,0 +1,21 @@
+Team Members
+	Darrin Lin
+	Daniel Pasillas
+
+Controls
+	WASD to move player (plane)
+	SPACE to shoot (doesn't do anything but it looks cool)
+
+Collectibles
+	Golden cubes (no collision)
+
+Enemies
+	Ogre heads (unfinished)
+
+Obstacles
+	Other planes (unfinished)
+
+Requirements to win
+	Survive the level
+	You lose when you collide with an enemy (unfinished)
+	Level 1 is easy, level 2 is more difficult (unfinished)

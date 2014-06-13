@@ -140,19 +140,19 @@ bool MainApplication::keyPressed(const OIS::KeyEvent& evt)
             break;
 
         case OIS::KC_W:
-            mDirection.y = mMove;
+            mDirection.y += mMove;
             break;
 
         case OIS::KC_A:
-            mDirection.x = -mMove;
+            mDirection.x -= mMove;
             break;
 
         case OIS::KC_S:
-            mDirection.y = -mMove;
+            mDirection.y -= mMove;
             break;
 
         case OIS::KC_D:
-            mDirection.x = mMove;
+            mDirection.x += mMove;
             break;
 
         case OIS::KC_SPACE:
@@ -168,19 +168,19 @@ bool MainApplication::keyReleased(const OIS::KeyEvent& evt)
     switch(evt.key)
     {
         case OIS::KC_W:
-            mDirection.y = 0;
+            mDirection.y -= mMove;
             break;
 
         case OIS::KC_A:
-            mDirection.x = 0;
+            mDirection.x += mMove;
             break;
 
         case OIS::KC_S:
-            mDirection.y = 0;
+            mDirection.y += mMove;
             break;
 
         case OIS::KC_D:
-            mDirection.x = 0;
+            mDirection.x -= mMove;
             break;
 
         default:

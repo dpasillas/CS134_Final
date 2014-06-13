@@ -30,7 +30,6 @@ void Collectible::update(Real dt) {
     node->pitch(Degree(-2));
 }
 
-
 CollectibleSpawner::CollectibleSpawner(SceneManager* mSceneMgr, Vector3 pos) 
     : Item(mSceneMgr), accumulator(0), totalTime(0) 
 {

@@ -143,6 +143,7 @@ void MainApplication::sceneBoundingBox()
 //     Vector3 collectiblePos(500, 0, 0);
 //     for(int i = 0; i < collectibleNames.size(); ++i)
 //     {
+        
 //     }
 // }
 //-------------------------------------------------------------------------------------

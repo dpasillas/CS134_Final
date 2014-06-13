@@ -35,6 +35,6 @@ bool Projectile::playerCollision() {
     return true;
 }
 
-bool Projectile::enemyCollision() {
+bool Projectile::enemyCollision(Item* enemy) {
     return true;
 }

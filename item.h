@@ -37,8 +37,8 @@ public:
     static Item* findByName(std::string name);
     virtual void update(Ogre::Real) = 0;
     virtual std::string getPrefix() = 0;
-    virtual bool playerCollision() = 0;
-    virtual bool enemyCollision() = 0;
+    virtual bool playerCollision();
+    virtual bool enemyCollision(Item* enemy);
 protected:
 
     void init();

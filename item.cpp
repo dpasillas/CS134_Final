@@ -79,6 +79,14 @@ Item* Item::findByName(std::string name) {
     return 0;
 }
 
+bool Item::playerCollision() {
+    return true;
+}
+
+bool Item::enemyCollision(Item* enemy) {
+    return true;
+}
+
 bool Item::ItemListener::queryResult(Ogre::MovableObject *first, Ogre::MovableObject *second) {
     std::string fname = first->getName();
     std::string sname = second->getName();
@@ -90,6 +98,21 @@ bool Item::ItemListener::queryResult(Ogre::MovableObject *first, Ogre::MovableOb
         Item* item = Item::findByName(fname);
         if(item)
             return item->playerCollision();
+    }
+    
+    std::string fsname = fname.substr(0,std::min(5,(int)fname.size()));
+    std::string ssname = sname.substr(0,std::min(5,(int)sname.size()));
+    
+    if(fsname == "Enemy") {
+        Item* item = Item::findByName(sname);
+        Item* enemy = Item::findByName(fname);
+        if(item && enemy)
+            return item->enemyCollision(enemy);
+    } else if (ssname == "Enemy") {
+        Item* item = Item::findByName(fname);
+        Item* enemy = Item::findByName(sname);
+        if(item && enemy)
+            return item->enemyCollision(enemy);
     }
     return true;
 }

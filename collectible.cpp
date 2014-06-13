@@ -44,7 +44,7 @@ bool Collectible::playerCollision() {
     return true;
 }
 
-bool Collectible::enemyCollision() {
+bool Collectible::enemyCollision(Item* enemy) {
     return true;
 }
 
@@ -87,7 +87,7 @@ bool CollectibleSpawner::playerCollision() {
     return true;
 }
 
-bool CollectibleSpawner::enemyCollision() {
+bool CollectibleSpawner::enemyCollision(Item* enemy) {
     return true;
 }
 

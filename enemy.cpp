@@ -6,10 +6,10 @@ using namespace Ogre;
 OgreSpawner* OgreSpawner::os(0);
 
 Enemy::Enemy(SceneManager* mSceneMgr, Vector3 pos, int mode)
-	: Item(mSceneMgr), mode(0), vel(Vector3(-350, 0.0, 0.0)) 
+	: Item(mSceneMgr), mode(mode), vel(Vector3(-250, 0.0, 0.0)) 
 {
 	init();
-	if(mode)
+	if(mode != 0)
 	    hp = 5;
 	else
 	    hp = 2;
@@ -38,6 +38,17 @@ std::string Enemy::getPrefix()
 
 void Enemy::update(Real dt)
 {
+    Vector3 diff = mSceneMgr->getSceneNode("PlayerNode")->getPosition() - node->getPosition();
+    diff.normalise();
+    
+    diff *= 10;
+    
+    if(mode != 0) {
+        vel += diff;
+        vel.normalise();
+        vel *= 250;
+    }
+    
 	node->translate(vel * dt);
 }
 
@@ -50,8 +61,8 @@ bool Enemy::playerCollision()
 
 
 
-EnemySpawner::EnemySpawner(SceneManager* mSceneMgr, Vector3 pos) 
-    : Item(mSceneMgr), accumulator(0), totalTime(0), period(2.0)
+EnemySpawner::EnemySpawner(SceneManager* mSceneMgr, Vector3 pos, int mode) 
+    : Item(mSceneMgr), accumulator(0), totalTime(0), period(2.0), mode(mode)
 {
     init();
     // Create an Entity
@@ -77,8 +88,13 @@ void EnemySpawner::update(Real dt)
         Vector3 pos = node->getPosition();
         pos.x = 240;
         pos.y = (rand() / double(RAND_MAX) - 0.5) * 2 * 150;
-        new Enemy(mSceneMgr, pos);
-        period = (rand() / double(RAND_MAX)) * 3.0 + 2.0;
+        
+        new Enemy(mSceneMgr, pos, mode);
+        
+        if(mode == 0)
+            period = (rand() / double(RAND_MAX)) * 3.0 + 2.0;
+        else
+            period = (rand() / double(RAND_MAX)) * 2.0 + 1.0;            
     }
     Vector3 newPos(240, 100 * sin(totalTime), 0);
     node->setPosition(newPos);    // makes the collectibles move <-- that way

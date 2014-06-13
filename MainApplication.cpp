@@ -72,7 +72,7 @@ void MainApplication::createScene(void)
     sceneNode->attachObject(mCamera);
 
     CollectibleSpawner::cs = new CollectibleSpawner(mSceneMgr);
-    new EnemySpawner(mSceneMgr);
+    new EnemySpawner(mSceneMgr,Vector3(240,0,0),1);
 }
 //-------------------------------------------------------------------------------------
 void MainApplication::createFrameListener(void)

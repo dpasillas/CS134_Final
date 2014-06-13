@@ -19,7 +19,7 @@ private:
 
 class EnemySpawner : public Item {
 public:
-    EnemySpawner(Ogre::SceneManager* mSceneMgr, Ogre::Vector3 pos = Ogre::Vector3(0,0,0));
+    EnemySpawner(Ogre::SceneManager* mSceneMgr, Ogre::Vector3 pos = Ogre::Vector3(0,0,0), int mode = 0);
 
     virtual void update(Ogre::Real);
     virtual std::string getPrefix();
@@ -27,6 +27,7 @@ public:
     volatile Ogre::Real accumulator;
     volatile Ogre::Real totalTime;
     double period;
+    int mode;
 };
 
 #endif

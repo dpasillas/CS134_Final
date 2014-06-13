@@ -7,6 +7,8 @@
 int Collectible::score = 0;
 const double PI = acos(-1);
 
+CollectibleSpawner* CollectibleSpawner::cs(0);
+
 using namespace Ogre;
 
 Collectible::Collectible(SceneManager* mSceneMgr, Vector3 pos)

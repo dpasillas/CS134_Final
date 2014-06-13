@@ -39,10 +39,9 @@ public:
     virtual std::string getPrefix() = 0;
     virtual bool playerCollision();
     virtual bool enemyCollision(Item* enemy);
+    static void queueForDeletion(Item * item);
 protected:
-
     void init();
-    void queueForDeletion(Item * item);
     std::string getUniqueName(std::string prefix);
     void setNode(Ogre::SceneNode* node);
     

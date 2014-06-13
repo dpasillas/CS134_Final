@@ -22,6 +22,9 @@ Enemy::Enemy(SceneManager* mSceneMgr, Vector3 pos, int mode)
     SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(name + "Node", pos);
     sceneNode->attachObject(enemyEntity);
     sceneNode->scale(1, 1, 1);
+    sceneNode->yaw(Degree(-90));
+    sceneNode->roll(Degree(-90));
+    sceneNode->pitch(Degree(-45));
     
     setNode(sceneNode);
 }

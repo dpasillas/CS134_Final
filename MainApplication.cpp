@@ -45,7 +45,7 @@ void MainApplication::createScene(void)
     mSceneMgr->setAmbientLight(ColourValue(1.0, 1.0, 1.0));
 
     // Create an Entity
-    Entity* playerEntity = mSceneMgr->createEntity("Head", "RZR-002.mesh");
+    Entity* playerEntity = mSceneMgr->createEntity("Player", "RZR-002.mesh");
             // playerEntity->getSubEntity(0)->setMaterialName("CustomOgre/Eyes");
             // playerEntity->getSubEntity(1)->setMaterialName("CustomOgre/Skin");
             // playerEntity->getSubEntity(2)->setMaterialName("CustomOgre/Earring");
@@ -106,6 +106,7 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
     mSceneMgr->getSceneNode("PlayerNode")->translate(mDirection * evt.timeSinceLastFrame, Node::TS_WORLD);
     
     Item::updateAll(evt.timeSinceLastFrame);
+    Item::checkCollisions(mSceneMgr);
     
     sceneBoundingBox();
 

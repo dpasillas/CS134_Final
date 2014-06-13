@@ -95,12 +95,13 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
     mTrayMgr->frameRenderingQueued(evt);
     
     // Set up movement bounds ("walls" on the window edges)
-    sceneBoundingBox();
 
     // Update ogre position
     mSceneMgr->getSceneNode("OgreNode")->translate(mDirection * evt.timeSinceLastFrame, Node::TS_WORLD);
     
     Projectile::update(evt.timeSinceLastFrame);
+    
+    sceneBoundingBox();
 
     return true;
 }
@@ -110,22 +111,22 @@ void MainApplication::sceneBoundingBox()
     Vector3 mDistance(mSceneMgr->getSceneNode("OgreNode")->getPosition());
     if(mDistance.x <= MIN_X)
     {
-        mDirection.x = std::max(0.,(double)mDirection.x);
+        //mDirection.x = std::max(0.,(double)mDirection.x);
         mSceneMgr->getSceneNode("OgreNode")->setPosition(Vector3(MIN_X, mDistance.y, mDistance.z));
     }
     if(mDistance.x >= MAX_X)
     {
-        mDirection.x = std::min(0.,(double)mDirection.x);
+        //mDirection.x = std::min(0.,(double)mDirection.x);
         mSceneMgr->getSceneNode("OgreNode")->setPosition(Vector3(MAX_X, mDistance.y, mDistance.z));
     }
     if(mDistance.y <= MIN_Y)
     {
-        mDirection.y = std::max(0.,(double)mDirection.y);
+        //mDirection.y = std::max(0.,(double)mDirection.y);
         mSceneMgr->getSceneNode("OgreNode")->setPosition(Vector3(mDistance.x, MIN_Y, mDistance.z));
     }
     if(mDistance.y >= MAX_Y)
     {
-        mDirection.y = std::min(0.,(double)mDirection.y);
+        //mDirection.y = std::min(0.,(double)mDirection.y);
         mSceneMgr->getSceneNode("OgreNode")->setPosition(Vector3(mDistance.x, MAX_Y, mDistance.z));
     }
 }

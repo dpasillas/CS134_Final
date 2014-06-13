@@ -12,11 +12,9 @@ public:
     static std::vector<std::string> collectibleNames;
     virtual std::string getPrefix();
     virtual bool playerCollision();
-    virtual bool enemyCollision();
-
-    static int score;
-    
     virtual bool enemyCollision(Item* enemy);
+    
+    static int score;
 };
 
 class CollectibleSpawner : public Item {

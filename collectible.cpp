@@ -40,7 +40,7 @@ std::string Collectible::getPrefix() {
 bool Collectible::playerCollision() {
     Item::queueForDeletion(this);
     score++;
-    std::cout << "Current Score: " << score << std::endl;
+    // std::cout << "Current Score: " << score << std::endl;
     return true;
 }
 

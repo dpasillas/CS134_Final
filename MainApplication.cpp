@@ -100,7 +100,7 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
     mKeyboard->capture();
     mMouse->capture();
     mTrayMgr->frameRenderingQueued(evt);
-    
+
 
     // Update ogre position
     mSceneMgr->getSceneNode("PlayerNode")->translate(mDirection * evt.timeSinceLastFrame, Node::TS_WORLD);
@@ -111,7 +111,7 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
     
     sceneBoundingBox();
 
-    return true;
+    return BaseApplication::frameRenderingQueued(evt);
 }
 //-------------------------------------------------------------------------------------
 void MainApplication::sceneBoundingBox()

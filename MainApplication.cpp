@@ -43,17 +43,19 @@ void MainApplication::createScene(void)
     mSceneMgr->setAmbientLight(ColourValue(1.0, 1.0, 1.0));
 
     // Create an Entity
-    Entity* ogreHead = mSceneMgr->createEntity("Head", "ogrehead.mesh");
-            ogreHead->getSubEntity(0)->setMaterialName("CustomOgre/Eyes");
-            ogreHead->getSubEntity(1)->setMaterialName("CustomOgre/Skin");
-            ogreHead->getSubEntity(2)->setMaterialName("CustomOgre/Earring");
-            ogreHead->getSubEntity(3)->setMaterialName("CustomOgre/Tusks");
-    
+    Entity* playerEntity = mSceneMgr->createEntity("Head", "RZR-002.mesh");
+            // playerEntity->getSubEntity(0)->setMaterialName("CustomOgre/Eyes");
+            // playerEntity->getSubEntity(1)->setMaterialName("CustomOgre/Skin");
+            // playerEntity->getSubEntity(2)->setMaterialName("CustomOgre/Earring");
+            // playerEntity->getSubEntity(3)->setMaterialName("CustomOgre/Tusks");
+
     // Create a SceneNode and attach the Entity to it
-    SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("OgreNode", Vector3(0, 0, 0));
-    sceneNode->attachObject(ogreHead);
-    sceneNode->scale(0.75, 0.75, 0.75);  // make ogre smaller
+    SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", Vector3(0, 0, 0));
+    sceneNode->attachObject(playerEntity);
+    sceneNode->scale(3, 3, 3);  // make ogre smaller
     sceneNode->yaw(Degree(90));          // make ogre face sideways
+    sceneNode->roll(Degree(90));
+    sceneNode->pitch(Degree(-25));
 
     // Create a Light and set its pos
     Light* mainLight = mSceneMgr->createLight("MainLight");
@@ -97,7 +99,7 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
     // Set up movement bounds ("walls" on the window edges)
 
     // Update ogre position
-    mSceneMgr->getSceneNode("OgreNode")->translate(mDirection * evt.timeSinceLastFrame, Node::TS_WORLD);
+    mSceneMgr->getSceneNode("PlayerNode")->translate(mDirection * evt.timeSinceLastFrame, Node::TS_WORLD);
     
     Projectile::update(evt.timeSinceLastFrame);
     
@@ -108,26 +110,26 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
 //-------------------------------------------------------------------------------------
 void MainApplication::sceneBoundingBox()
 {
-    Vector3 mDistance(mSceneMgr->getSceneNode("OgreNode")->getPosition());
+    Vector3 mDistance(mSceneMgr->getSceneNode("PlayerNode")->getPosition());
     if(mDistance.x <= MIN_X)
     {
         //mDirection.x = std::max(0.,(double)mDirection.x);
-        mSceneMgr->getSceneNode("OgreNode")->setPosition(Vector3(MIN_X, mDistance.y, mDistance.z));
+        mSceneMgr->getSceneNode("PlayerNode")->setPosition(Vector3(MIN_X, mDistance.y, mDistance.z));
     }
     if(mDistance.x >= MAX_X)
     {
         //mDirection.x = std::min(0.,(double)mDirection.x);
-        mSceneMgr->getSceneNode("OgreNode")->setPosition(Vector3(MAX_X, mDistance.y, mDistance.z));
+        mSceneMgr->getSceneNode("PlayerNode")->setPosition(Vector3(MAX_X, mDistance.y, mDistance.z));
     }
     if(mDistance.y <= MIN_Y)
     {
         //mDirection.y = std::max(0.,(double)mDirection.y);
-        mSceneMgr->getSceneNode("OgreNode")->setPosition(Vector3(mDistance.x, MIN_Y, mDistance.z));
+        mSceneMgr->getSceneNode("PlayerNode")->setPosition(Vector3(mDistance.x, MIN_Y, mDistance.z));
     }
     if(mDistance.y >= MAX_Y)
     {
         //mDirection.y = std::min(0.,(double)mDirection.y);
-        mSceneMgr->getSceneNode("OgreNode")->setPosition(Vector3(mDistance.x, MAX_Y, mDistance.z));
+        mSceneMgr->getSceneNode("PlayerNode")->setPosition(Vector3(mDistance.x, MAX_Y, mDistance.z));
     }
 }
 //-------------------------------------------------------------------------------------
@@ -157,7 +159,7 @@ bool MainApplication::keyPressed(const OIS::KeyEvent& evt)
             break;
 
         case OIS::KC_SPACE:
-            new Projectile(mSceneMgr, mSceneMgr->getSceneNode("OgreNode")->getPosition());
+            new Projectile(mSceneMgr, mSceneMgr->getSceneNode("PlayerNode")->getPosition());
         default:
             break;
     }

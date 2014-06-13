@@ -229,7 +229,7 @@ bool BaseApplication::setup(void)
 
     // create background material
     Ogre::MaterialPtr material = Ogre::MaterialManager::getSingleton().create("background", "General");
-    material->getTechnique(0)->getPass(0)->createTextureUnitState("spacesky.jpg");
+    material->getTechnique(0)->getPass(0)->createTextureUnitState("Water.jpg");
     material->getTechnique(0)->getPass(0)->setDepthCheckEnabled(false);
     material->getTechnique(0)->getPass(0)->setDepthWriteEnabled(false);
     material->getTechnique(0)->getPass(0)->setLightingEnabled(false);

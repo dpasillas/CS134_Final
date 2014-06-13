@@ -26,6 +26,7 @@
 #include <vector>
 #include <map>
 #include <queue>
+#include <set>
 
 class Item {
 public:
@@ -49,7 +50,7 @@ protected:
     static unsigned int id;
     //static std::vector<Item*> items;
     static std::map<std::string, Item*> itemsByName;
-    static std::queue<Item*> deletionQueue;
+    static std::set<Item*> deletionQueue;
     
     Ogre::SceneManager* mSceneMgr;
     //Ogre::Vector3 dir;

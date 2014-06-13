@@ -9,7 +9,7 @@ unsigned int Item::id = 0;
 //std::vector<Item*> Item::items = std::vector<Item*>();
 Item::ItemListener* Item::listener = new ItemListener();
 std::map<std::string, Item*> Item::itemsByName = std::map<std::string, Item*>();
-std::queue<Item*> Item::deletionQueue = std::queue<Item*>();
+std::set<Item*> Item::deletionQueue = std::set<Item*>();
 
 Item::Item(SceneManager* mSceneMgr) : mSceneMgr(mSceneMgr) {
 
@@ -38,7 +38,7 @@ void Item::init() {
 }
 
 void Item::queueForDeletion(Item* item) {
-    deletionQueue.push(item);
+    deletionQueue.insert(item);
 }
 
 void Item::setNode(SceneNode* node) {
@@ -60,15 +60,26 @@ void Item::checkCollisions(SceneManager* mSceneMgr) {
 }
 
 void Item::cleanup() {
-    while(!deletionQueue.empty()) {
+    for(std::set<Item*>::iterator it = deletionQueue.begin(); it != deletionQueue.end(); ++it) {
+        Item *item = *it;
+        itemsByName.erase(item->name);
+        
+        item->mSceneMgr->destroyMovableObject(item->node->getAttachedObject(0));
+        delete item;
+    }
+    
+    deletionQueue.clear();
+    /*while(!deletionQueue.empty()) {
         Item *item = deletionQueue.front();
         deletionQueue.pop();
         itemsByName.erase(item->name);
         //items.erase(item);
         
-        item->mSceneMgr->destroyMovableObject(item->node->getAttachedObject(0));
+        try{
+            item->mSceneMgr->destroyMovableObject(item->node->getAttachedObject(0));
+        } catch(...) {}
         delete item;
-    }
+    }*/
 }
 
 Item* Item::findByName(std::string name) {

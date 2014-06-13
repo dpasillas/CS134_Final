@@ -12,7 +12,7 @@ Projectile::Projectile(SceneManager* mSceneMgr, Vector3 pos, Vector3 dir) : Item
     // Create a SceneNode and attach the Entity to it
     SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(getUniqueName("BulletNode"), pos);
     
-    sceneNode->attachObject(projectileEntity);
+    sceneNode->attachObject(barrelProjectile);
     sceneNode->scale(1, 1, 2);
     sceneNode->yaw(Degree(90));
     

@@ -8,9 +8,9 @@ Enemy::Enemy(SceneManager* mSceneMgr, Vector3 pos, int mode)
 {
 	init();
 	if(mode)
-	    hp = 5;
+	    hp = 6;
 	else
-	    hp = 2;
+	    hp = 3;
     // Create an Entity
     Entity* enemyEntity = mSceneMgr->createEntity(name, "ogrehead.mesh");
             enemyEntity->getSubEntity(0)->setMaterialName("CustomOgre/Eyes");
@@ -33,6 +33,8 @@ std::string Enemy::getPrefix()
 
 void Enemy::update(Real dt)
 {
+    if(mode != 0)
+        vel += (mSceneMgr->getSceneNode("PlayerNode")->getPosition() - node->getPosition()).normalisedCopy() * 10 * dt;
 	node->translate(vel * dt);
 }
 
@@ -45,8 +47,8 @@ bool Enemy::playerCollision()
 
 
 
-EnemySpawner::EnemySpawner(SceneManager* mSceneMgr, Vector3 pos) 
-    : Item(mSceneMgr), accumulator(0), totalTime(0), period(2.0)
+EnemySpawner::EnemySpawner(SceneManager* mSceneMgr, Vector3 pos, int mode) 
+    : Item(mSceneMgr), accumulator(0), totalTime(0), period(2.0), mode(mode)
 {
     init();
     // Create an Entity
@@ -72,8 +74,13 @@ void EnemySpawner::update(Real dt)
         Vector3 pos = node->getPosition();
         pos.x = 240;
         pos.y = (rand() / double(RAND_MAX) - 0.5) * 2 * 150;
-        new Enemy(mSceneMgr, pos);
-        period = (rand() / double(RAND_MAX)) * 3.0 + 2.0;
+        
+        new Enemy(mSceneMgr, pos, 0);
+        
+        if(mode == 0)
+            period = (rand() / double(RAND_MAX)) * 3.0 + 2.0;
+        else
+            period = (rand() / double(RAND_MAX)) * 2.0 + 1.0;            
     }
     Vector3 newPos(240, 100 * sin(totalTime), 0);
     node->setPosition(newPos);    // makes the collectibles move <-- that way

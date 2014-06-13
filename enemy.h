@@ -23,7 +23,7 @@ public:
 
     virtual void update(Ogre::Real);
     virtual std::string getPrefix();
-    
+    static EnemySpawner* es;
     volatile Ogre::Real accumulator;
     volatile Ogre::Real totalTime;
     double period;

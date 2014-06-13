@@ -3,6 +3,8 @@
 
 using namespace Ogre;
 
+EnemySpawner* EnemySpawner::es(0);
+
 Enemy::Enemy(SceneManager* mSceneMgr, Vector3 pos, int mode)
 	: Item(mSceneMgr), mode(mode), vel(Vector3(-250, 0.0, 0.0)) 
 {

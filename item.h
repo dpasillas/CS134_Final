@@ -1,5 +1,5 @@
-#ifndef PROJECTILE_H
-#define PROJECTILE_H
+#ifndef ITEM_H
+#define ITEM_H
 
 #include <OgreCamera.h>
 #include <OgreEntity.h>
@@ -24,15 +24,23 @@
 
 #include <vector>
 
-#include "item.h"
-
-class Projectile : public Item {
+class Item {
 public:
-    Projectile(Ogre::SceneManager* mSceneMgr, Ogre::Vector3 pos, Ogre::Vector3 dir = Ogre::Vector3(500,0,0));
+    Item(Ogre::SceneManager* mSceneMgr);
     
-    virtual void update(Ogre::Real);
-private:
-    Ogre::Vector3 dir;
+    static void updateAll(Ogre::Real);
+    virtual void update(Ogre::Real) = 0;
+protected:
+    std::string getUniqueName(std::string prefix);
+    void setNode(Ogre::SceneNode* node);
+    
+    static unsigned int id;
+    static std::vector<Item*> items;
+    
+    Ogre::SceneManager* mSceneMgr;
+    //Ogre::Vector3 dir;
+    Ogre::SceneNode* node;
+    
 };
 
 #endif

@@ -95,9 +95,11 @@ bool MainApplication::frameRenderingQueued(const FrameEvent& evt)
         return false;
     if(mShutDown)
         return false;
-    if(Collectible::score < 0)
+
+    if(Collectible::score < 0 && CollectibleSpawner::cs)
     {
         Item::queueForDeletion(CollectibleSpawner::cs);
+        CollectibleSpawner::cs = 0;
     }
 
     // Capture input to respond

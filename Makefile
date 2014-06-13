@@ -15,7 +15,7 @@ CC = g++
 INCLUDE =
 
 ## Other Source Files
-HEADERS = projectile.h item.h collectible.h
+HEADERS = projectile.h item.h collectible.h enemy.h
 SOURCES = $(HEADERS:.h=.cpp)
 OBJECTS = $(SOURCES:.cpp=.o)
 

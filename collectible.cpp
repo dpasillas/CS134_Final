@@ -59,7 +59,6 @@ CollectibleSpawner::CollectibleSpawner(SceneManager* mSceneMgr, Vector3 pos)
     SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(name + "Node", pos);
     
     sceneNode->attachObject(collectibleSpawner);
-    sceneNode->scale(0.2, 0.2, 0.2);
     sceneNode->setPosition(Vector3(240, 0, 0));
     
     setNode(sceneNode);
@@ -82,13 +81,3 @@ void CollectibleSpawner::update(Real dt)
 std::string CollectibleSpawner::getPrefix() {
     return "CollectibleSpawner";
 }
-
-bool CollectibleSpawner::playerCollision() {
-    return true;
-}
-
-bool CollectibleSpawner::enemyCollision(Item* enemy) {
-    return true;
-}
-
-

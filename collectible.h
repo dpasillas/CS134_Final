@@ -13,7 +13,7 @@ public:
     virtual std::string getPrefix();
     virtual bool playerCollision();
     virtual bool enemyCollision(Item* enemy);
-    
+
     static int score;
 };
 
@@ -24,9 +24,6 @@ public:
     virtual void update(Ogre::Real);
 
     virtual std::string getPrefix();
-    
-    virtual bool playerCollision();
-    virtual bool enemyCollision(Item* enemy);
     
     volatile Ogre::Real accumulator;
     volatile Ogre::Real totalTime;

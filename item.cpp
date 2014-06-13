@@ -38,9 +38,7 @@ void Item::init() {
 }
 
 void Item::queueForDeletion(Item* item) {
-    //std::cout << "BEFORE" << std::endl;
     deletionQueue.push(item);
-    //std::cout << "AFTER" << std::endl;
 }
 
 void Item::setNode(SceneNode* node) {

@@ -4,13 +4,13 @@
 using namespace Ogre;
 
 Enemy::Enemy(SceneManager* mSceneMgr, Vector3 pos, int mode)
-	: Item(mSceneMgr), mode(0), vel(Vector3(-350, 0.0, 0.0)) 
+	: Item(mSceneMgr), mode(mode), vel(Vector3(-250, 0.0, 0.0)) 
 {
 	init();
-	if(mode)
-	    hp = 6;
+	if(mode != 0)
+	    hp = 5;
 	else
-	    hp = 3;
+	    hp = 2;
     // Create an Entity
     Entity* enemyEntity = mSceneMgr->createEntity(name, "ogrehead.mesh");
             enemyEntity->getSubEntity(0)->setMaterialName("CustomOgre/Eyes");
@@ -36,8 +36,17 @@ std::string Enemy::getPrefix()
 
 void Enemy::update(Real dt)
 {
-    if(mode != 0)
-        vel += (mSceneMgr->getSceneNode("PlayerNode")->getPosition() - node->getPosition()).normalisedCopy() * 10 * dt;
+    Vector3 diff = mSceneMgr->getSceneNode("PlayerNode")->getPosition() - node->getPosition();
+    diff.normalise();
+    
+    diff *= 10;
+    
+    if(mode != 0) {
+        vel += diff;
+        vel.normalise();
+        vel *= 250;
+    }
+    
 	node->translate(vel * dt);
 }
 
@@ -78,7 +87,7 @@ void EnemySpawner::update(Real dt)
         pos.x = 240;
         pos.y = (rand() / double(RAND_MAX) - 0.5) * 2 * 150;
         
-        new Enemy(mSceneMgr, pos, 0);
+        new Enemy(mSceneMgr, pos, mode);
         
         if(mode == 0)
             period = (rand() / double(RAND_MAX)) * 3.0 + 2.0;

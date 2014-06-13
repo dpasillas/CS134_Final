@@ -53,10 +53,10 @@ void MainApplication::createScene(void)
     // Create a SceneNode and attach the Entity to it
     SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("PlayerNode", Vector3(0, 0, 0));
     sceneNode->attachObject(playerEntity);
-    sceneNode->scale(3, 3, 3);  // make ogre smaller
-    sceneNode->yaw(Degree(90));          // make ogre face sideways
-    sceneNode->roll(Degree(90));
-    sceneNode->pitch(Degree(-25));
+    sceneNode->scale(3, 3, 3);          // set size of the player
+    sceneNode->yaw(Degree(90));         // make player face ->
+    sceneNode->roll(Degree(90));        // get top down view
+    // sceneNode->pitch(Degree(-25));
 
     // Create a Light and set its pos
     Light* mainLight = mSceneMgr->createLight("MainLight");

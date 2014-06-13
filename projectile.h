@@ -31,6 +31,9 @@ public:
     Projectile(Ogre::SceneManager* mSceneMgr, Ogre::Vector3 pos, Ogre::Vector3 dir = Ogre::Vector3(500,0,0));
     
     virtual void update(Ogre::Real);
+    virtual std::string getPrefix();
+    virtual bool playerCollision();
+    virtual bool enemyCollision();
 private:
     Ogre::Vector3 dir;
 };

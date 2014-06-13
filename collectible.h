@@ -10,6 +10,9 @@ public:
     virtual void update(Ogre::Real);
     
     static std::vector<std::string> collectibleNames;
+    virtual std::string getPrefix();
+    virtual bool playerCollision();
+    virtual bool enemyCollision();
 };
 
 class CollectibleSpawner : public Item {
@@ -18,6 +21,11 @@ public:
     
     virtual void update(Ogre::Real);
 
+    virtual std::string getPrefix();
+    
+    virtual bool playerCollision();
+    virtual bool enemyCollision();
+    
     volatile Ogre::Real accumulator;
     volatile Ogre::Real totalTime;
 };

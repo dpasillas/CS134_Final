@@ -9,13 +9,12 @@ using namespace Ogre;
 
 Collectible::Collectible(SceneManager* mSceneMgr, Vector3 pos) : Item(mSceneMgr) {
    
+    init();
     // Create an Entity
-    Entity* collectibleEntity = mSceneMgr->createEntity(getUniqueName("Collectible"), "cube.mesh");
+    Entity* collectibleEntity = mSceneMgr->createEntity(name, "cube.mesh");
             collectibleEntity->setMaterialName("CustomOgre/Earring");
     // Create a SceneNode and attach the Entity to it
-    std::string collectibleName = getUniqueName("CollectibleNode");
-    collectibleNames.push_back(collectibleName);
-    SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(getUniqueName("CollectibleNode"), pos);
+    SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(name + "Node", pos);
     sceneNode->attachObject(collectibleEntity);
     sceneNode->scale(0.2, 0.2, 0.2);
     
@@ -30,14 +29,30 @@ void Collectible::update(Real dt) {
     node->pitch(Degree(-2));
 }
 
+<<<<<<< HEAD
+=======
+std::string Collectible::getPrefix() {
+    return "Collectible";
+}
+
+bool Collectible::playerCollision() {
+    return true;
+}
+
+bool Collectible::enemyCollision() {
+    return true;
+}
+
+>>>>>>> d97246e104e06428a6e8806bbde05b4fdbeb829e
 CollectibleSpawner::CollectibleSpawner(SceneManager* mSceneMgr, Vector3 pos) 
     : Item(mSceneMgr), accumulator(0), totalTime(0) 
 {
+    init();
     // Create an Entity
-    ManualObject* collectibleSpawner = mSceneMgr->createManualObject(getUniqueName("Spawner"));
+    ManualObject* collectibleSpawner = mSceneMgr->createManualObject(name);
     // collectibleSpawner->end();
     // Create a SceneNode and attach the Entity to it
-    SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(getUniqueName("SpawnerNode"), pos);
+    SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(name + "Node", pos);
     
     sceneNode->attachObject(collectibleSpawner);
     sceneNode->scale(0.2, 0.2, 0.2);
@@ -59,3 +74,17 @@ void CollectibleSpawner::update(Real dt)
     Vector3 newPos(240, 100 * sin(totalTime), 0);
     node->setPosition(newPos);    // makes the collectibles move <-- that way
 }
+
+std::string CollectibleSpawner::getPrefix() {
+    return "CollectibleSpawner";
+}
+
+bool CollectibleSpawner::playerCollision() {
+    return true;
+}
+
+bool CollectibleSpawner::enemyCollision() {
+    return true;
+}
+
+

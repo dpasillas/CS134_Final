@@ -29,8 +29,6 @@ void Collectible::update(Real dt) {
     node->pitch(Degree(-2));
 }
 
-<<<<<<< HEAD
-=======
 std::string Collectible::getPrefix() {
     return "Collectible";
 }
@@ -43,7 +41,6 @@ bool Collectible::enemyCollision() {
     return true;
 }
 
->>>>>>> d97246e104e06428a6e8806bbde05b4fdbeb829e
 CollectibleSpawner::CollectibleSpawner(SceneManager* mSceneMgr, Vector3 pos) 
     : Item(mSceneMgr), accumulator(0), totalTime(0) 
 {

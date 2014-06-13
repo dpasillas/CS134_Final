@@ -8,6 +8,6 @@ public:
     class Collectible(Ogre::SceneManager* mSceneMgr);
     
     virtual void update(Ogre::Real);
-}
+};
 
 #endif

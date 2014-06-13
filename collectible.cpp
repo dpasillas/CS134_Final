@@ -7,7 +7,7 @@ using namespace Ogre;
 Collectible::Collectible(SceneManager* mSceneMgr) : Item(mSceneMgr) {
 
     // Create an Entity
-    Entity* barrelCollectible = mSceneMgr->createEntity(getUniqueName("Collectible"), "Barrel.mesh");
+    Entity* barrelCollectible = mSceneMgr->createEntity(getUniqueName("Collectible"), "cube.mesh");
 
     // Create a SceneNode and attach the Entity to it
     SceneNode* sceneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(getUniqueName("CollectibleNode"), pos);
@@ -19,7 +19,7 @@ Collectible::Collectible(SceneManager* mSceneMgr) : Item(mSceneMgr) {
     setNode(sceneNode);
 }
 
-//modify as you please :3
+// modify as you please :3
 void Collectible::update(Real dt) {
     node->translate(Vector3(-25,0,0) * dt);
     node->yaw(Degree(5));

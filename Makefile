@@ -14,6 +14,11 @@ CC = g++
 ## Global header files
 INCLUDE =
 
+## Other Source Files
+HEADERS = projectile.h
+SOURCES = $(HEADERS:.h=.cpp)
+OBJECTS = $(SOURCES:.cpp=.o)
+
 ## Object files and executables
 MAIN_OUT = a.out
 BASE_APPLICATION_OUT = BaseApplication.o
@@ -23,13 +28,16 @@ MAIN_REQS = MainApplication.cpp $(BASE_APPLICATION_OUT)
 BASE_APPLICATION_REQS = BaseApplication.cpp
 
 ## Targets to compile for each command
-MAIN_TARGETS = MainApplication.cpp $(BASE_APPLICATION_OUT)
+MAIN_TARGETS = MainApplication.cpp $(BASE_APPLICATION_OUT) $(OBJECTS)
 BASE_APPLICATION_TARGETS = BaseApplication.cpp
 
 all: main
 
+%.o: %.cpp %.h
+	g++ -c $(INCLUDE_PATHS) $(LIB_PATHS) $(LIBS) $< -o $@
+
 ## Main 
-main: $(MAIN_REQS) $(INCLUDE)
+main: $(MAIN_REQS) $(INCLUDE) $(OBJECTS)
 	$(CC) $(INCLUDE_PATHS) $(LIB_PATHS) $(MAIN_TARGETS) $(LIBS) -o $(MAIN_OUT)
 $(BASE_APPLICATION_OUT): $(BASE_APPLICATION_REQS) $(INCLUDE)
 	$(CC) -c $(INCLUDE_PATHS) $(LIB_PATHS) $(BASE_APPLICATION_TARGETS) $(LIBS) -o $(BASE_APPLICATION_OUT)

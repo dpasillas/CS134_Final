@@ -22,7 +22,8 @@
 #include <OgreAxisAlignedBox.h>
 #include <OgreMaterial.h>
 
-class Projectile {
+class Projectile
+{
 public:
     Projectile(Ogre::SceneManager* mSceneMgr, Ogre::Vector3 pos, Ogre::Vector3 dir = Ogre::Vector3(0,0,0));
     

@@ -1,4 +1,5 @@
 #include "projectile.h"
+#include "enemy.h"
 #include <cstdlib>
 //#include <stdlib.h>
 
@@ -31,10 +32,13 @@ std::string Projectile::getPrefix(){
     return "Bullet";
 }
 
-bool Projectile::playerCollision() {
-    return true;
-}
-
 bool Projectile::enemyCollision(Item* enemy) {
+    Enemy* e = (Enemy*)enemy;
+    Item::queueForDeletion(this);
+    
+    e->hp--;
+    if(e->hp == 0) {
+        Item::queueForDeletion(enemy);
+    }   
     return true;
 }

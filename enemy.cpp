@@ -7,6 +7,10 @@ Enemy::Enemy(SceneManager* mSceneMgr, Vector3 pos, int mode)
 	: Item(mSceneMgr), mode(0), vel(Vector3(-350, 0.0, 0.0)) 
 {
 	init();
+	if(mode)
+	    hp = 5;
+	else
+	    hp = 2;
     // Create an Entity
     Entity* enemyEntity = mSceneMgr->createEntity(name, "ogrehead.mesh");
             enemyEntity->getSubEntity(0)->setMaterialName("CustomOgre/Eyes");

@@ -10,7 +10,8 @@ public:
 	std::string getPrefix();
 	void update(Ogre::Real dt);
 	virtual bool playerCollision();
-
+    
+    int hp;
 private:
 	int mode;
 	Ogre::Vector3 vel;

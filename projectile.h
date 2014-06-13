@@ -32,7 +32,6 @@ public:
     
     virtual void update(Ogre::Real);
     virtual std::string getPrefix();
-    virtual bool playerCollision();
     virtual bool enemyCollision(Item* enemy);
 private:
     Ogre::Vector3 dir;

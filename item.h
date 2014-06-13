@@ -33,6 +33,7 @@ public:
     
     static void updateAll(Ogre::Real);
     static void checkCollisions(Ogre::SceneManager* mSceneMgr);
+    static void cleanup();
     static Item* findByName(std::string name);
     virtual void update(Ogre::Real) = 0;
     virtual std::string getPrefix() = 0;
@@ -41,12 +42,12 @@ public:
 protected:
 
     void init();
-    void queueForDeletion();
+    void queueForDeletion(Item * item);
     std::string getUniqueName(std::string prefix);
     void setNode(Ogre::SceneNode* node);
     
     static unsigned int id;
-    static std::vector<Item*> items;
+    //static std::vector<Item*> items;
     static std::map<std::string, Item*> itemsByName;
     static std::queue<Item*> deletionQueue;
     

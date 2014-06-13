@@ -34,6 +34,7 @@ std::string Collectible::getPrefix() {
 }
 
 bool Collectible::playerCollision() {
+    Item::queueForDeletion(this);
     return true;
 }
 

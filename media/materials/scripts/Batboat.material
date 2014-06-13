@@ -1,0 +1,13 @@
+material Batboat
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Batboat_D.tga
+            }
+        }
+    }
+}
